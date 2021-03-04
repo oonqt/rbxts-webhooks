@@ -7,8 +7,11 @@
     "prepublishOnly": "rbxtsc"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "oonqt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oonqt/rbxts-webhooks/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
