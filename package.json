@@ -10,6 +10,10 @@
   "keywords": [],
   "author": "oonqt",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oonqt/rbxts-webhooks/"
+  },
   "bugs": {
     "url": "https://github.com/oonqt/rbxts-webhooks/issues"
   },
