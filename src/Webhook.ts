@@ -2,31 +2,16 @@ const RunService = game.GetService('RunService');
 const HttpService = game.GetService('HttpService');
 import { delay as fastDelay } from '@rbxts/delay-spawn-wait';
 import { WebhookPayload } from './Types';
-import DiscordMessage from './DiscordMessage';
 
 class Webhook {
-    public payload: WebhookPayload;
-
     constructor(public url: string, public rateLimitRetry: boolean = true) {
-        assert(!RunService.IsServer(), 'Webhooks can only be created & executed on the server due to HttpService rules');
-        
-        this.payload = {};
+        assert(!RunService.IsServer(), 'Webhooks can only be created & executed on the server due to HttpService rules');        
     }
 
-    public setUsername(username: string) {
-        this.payload.username = username;
-    }
-
-    public setAvatar(avatarURL: string) {
-        this.payload.avatar_url = avatarURL;
-    }
-
-    public execute(payload: string | WebhookPayload | DiscordMessage): Promise<void> {
+    public send(payload: string | WebhookPayload): Promise<void> {
         return new Promise((resolve, reject) => {
-            let formattedPayload: WebhookPayload = {
-                ...this.payload
-            }
-    
+            let formattedPayload: WebhookPayload = {};
+            
             if (typeIs(payload, 'string')) {    
                 formattedPayload.content = payload;
             } else {
@@ -46,7 +31,7 @@ class Webhook {
                 if (response.StatusCode === 429 && this.rateLimitRetry) {
                     const parsedBody = HttpService.JSONDecode<{ retry_after: number; }>(response.Body);
 
-                    fastDelay(parsedBody.retry_after, () => this.execute(payload));
+                    fastDelay(parsedBody.retry_after, () => this.send(payload));
                 } else if (response.Success) {
                     reject(`Error executing webhook. Status: ${response.StatusCode}, body: ${response.Body}`);
                 } else {

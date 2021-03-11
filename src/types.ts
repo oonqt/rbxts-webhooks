@@ -51,6 +51,6 @@ export interface Embed {
     image?: Image;
     thumbnail?: Thumbnail;
     video?: Video;
-    author: Author;
-    fields: Field[]
+    author?: Author;
+    fields?: Field[]
 }

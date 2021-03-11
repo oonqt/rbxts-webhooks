@@ -1,7 +1,7 @@
 {
   "name": "@rbxts/webhooks",
   "version": "1.0.0",
-  "description": "",
+  "description": "A very simple layer of abstraction for interacting with Discord webhooks with Roblox-TS",
   "main": "out/init.lua",
   "scripts": {
     "prepublishOnly": "rbxtsc",
